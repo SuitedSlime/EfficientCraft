@@ -1,4 +1,4 @@
-package com.suitedslime.efficientcraft.util;
+package com.suitedslime.efficientcraft.core.helper;
 
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.registry.LanguageRegistry;

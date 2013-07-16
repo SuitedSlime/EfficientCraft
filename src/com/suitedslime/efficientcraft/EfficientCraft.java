@@ -3,8 +3,9 @@ package com.suitedslime.efficientcraft;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
+import com.suitedslime.efficientcraft.core.helper.TooltipHelper;
+import com.suitedslime.efficientcraft.core.helper.TranslationHelper;
 import com.suitedslime.efficientcraft.network.PacketHandler;
-import com.suitedslime.efficientcraft.util.TranslationHelper;
 
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
@@ -65,6 +66,9 @@ public class EfficientCraft {
 		
 		// Load language files
 		LOGGER.fine("Language(s) Loaded: " + TranslationHelper.loadLanguages(LANGUAGE_DIR, new String[] { "en_US" }));
+		
+		// Add fancy tooltips!
+		TooltipHelper.initTooltips();
 		
 		// Write metadata information
 		metadata.modId = ID;
