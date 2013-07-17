@@ -43,9 +43,9 @@ public class BlockCoord implements Comparable {
     public BlockCoord(int[] array) {
         this(array[0], array[1], array[2]);
     }
-    
+
     public BlockCoord() {
-        
+
     }
 
     @Override
