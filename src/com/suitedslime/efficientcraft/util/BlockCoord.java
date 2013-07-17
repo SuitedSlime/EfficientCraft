@@ -16,23 +16,18 @@ public class BlockCoord implements Comparable {
     public int y;
     public int z;
 
-    public static final BlockCoord[] sideOffsets = { new BlockCoord(0, -1, 0),
-            new BlockCoord(0, 1, 0), new BlockCoord(0, 0, -1), new BlockCoord(0, 0, 1),
-            new BlockCoord(-1, 0, 0), new BlockCoord(1, 0, 0) };
+    public static final BlockCoord[] sideOffsets = { new BlockCoord(0, -1, 0), new BlockCoord(0, 1, 0),
+            new BlockCoord(0, 0, -1), new BlockCoord(0, 0, 1), new BlockCoord(-1, 0, 0), new BlockCoord(1, 0, 0) };
 
-    public static final BlockCoord[] nearbyOffsets = { new BlockCoord(-1, 1, 1),
-            new BlockCoord(0, 1, 1), new BlockCoord(1, 1, 1), new BlockCoord(-1, 0, 1),
-            new BlockCoord(0, 0, 1), new BlockCoord(1, 0, 1), new BlockCoord(-1, -1, 1),
-            new BlockCoord(0, -1, 1), new BlockCoord(1, -1, 1),
+    public static final BlockCoord[] nearbyOffsets = { new BlockCoord(-1, 1, 1), new BlockCoord(0, 1, 1),
+            new BlockCoord(1, 1, 1), new BlockCoord(-1, 0, 1), new BlockCoord(0, 0, 1), new BlockCoord(1, 0, 1),
+            new BlockCoord(-1, -1, 1), new BlockCoord(0, -1, 1), new BlockCoord(1, -1, 1),
 
-            new BlockCoord(-1, 1, 0), new BlockCoord(0, 1, 0), new BlockCoord(1, 1, 0),
-            new BlockCoord(-1, 0, 0), new BlockCoord(1, 0, 0), new BlockCoord(-1, -1, 0),
-            new BlockCoord(0, -1, 0), new BlockCoord(1, -1, 0),
+            new BlockCoord(-1, 1, 0), new BlockCoord(0, 1, 0), new BlockCoord(1, 1, 0), new BlockCoord(-1, 0, 0),
+            new BlockCoord(1, 0, 0), new BlockCoord(-1, -1, 0), new BlockCoord(0, -1, 0), new BlockCoord(1, -1, 0),
 
-            new BlockCoord(-1, 1, -1), new BlockCoord(0, 1, -1),
-            new BlockCoord(1, 1, -1), new BlockCoord(-1, 0, -1),
-            new BlockCoord(0, 0, -1), new BlockCoord(1, 0, -1),
-            new BlockCoord(-1, -1, -1), new BlockCoord(0, -1, -1),
+            new BlockCoord(-1, 1, -1), new BlockCoord(0, 1, -1), new BlockCoord(1, 1, -1), new BlockCoord(-1, 0, -1),
+            new BlockCoord(0, 0, -1), new BlockCoord(1, 0, -1), new BlockCoord(-1, -1, -1), new BlockCoord(0, -1, -1),
             new BlockCoord(1, -1, -1) };
 
     public BlockCoord(int x, int y, int z) {
@@ -232,8 +227,7 @@ public class BlockCoord implements Comparable {
         return set(t.x, t.y, t.z);
     }
 
-    public List<BlockCoord> getRadiusMatches(World world, int radius, int blockID,
-            int meta) {
+    public List<BlockCoord> getRadiusMatches(World world, int radius, int blockID, int meta) {
         List<BlockCoord> matches = new ArrayList<BlockCoord>();
         BlockCoord c = this.copy();
 
@@ -285,8 +279,7 @@ public class BlockCoord implements Comparable {
             return true;
         if (c.getBlock(world) == null ^ this.getBlock(world) == null)
             return false;
-        return (c.getBlockID(world) == this.getBlockID(world) && c.getMeta(world) == this
-                .getMeta(world));
+        return (c.getBlockID(world) == this.getBlockID(world) && c.getMeta(world) == this.getMeta(world));
     }
 
     public boolean blockEquals(World world, int blockID, int meta) {
@@ -300,8 +293,7 @@ public class BlockCoord implements Comparable {
             return true;
         if (c.getBlock(world) == null ^ this.getBlock(world) == null)
             return false;
-        return (c.getBlockID(world) == this.getBlockID(world) && c.getMeta(world) == this
-                .getMeta(world));
+        return (c.getBlockID(world) == this.getBlockID(world) && c.getMeta(world) == this.getMeta(world));
     }
 
     public boolean blockEquals(IBlockAccess world, int blockID, int meta) {
@@ -342,8 +334,7 @@ public class BlockCoord implements Comparable {
     }
 
     public float getDistance(int x, int y, int z) {
-        return (float) Math.sqrt(Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2)
-                + Math.pow(this.z - z, 2));
+        return (float) Math.sqrt(Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2) + Math.pow(this.z - z, 2));
     }
 
     public int getMeta(World world) {

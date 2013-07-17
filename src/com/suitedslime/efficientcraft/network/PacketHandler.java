@@ -10,10 +10,10 @@ import cpw.mods.fml.common.network.Player;
 
 public class PacketHandler implements IPacketHandler {
 
-	@Override
-	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
-		PacketEC packetEC = PacketTypeHandler.buildPacket(packet.data);
-		packetEC.execute(manager, player, FMLCommonHandler.instance().getEffectiveSide());
-	}
-	
+    @Override
+    public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
+        PacketEC packetEC = PacketTypeHandler.buildPacket(packet.data);
+        packetEC.execute(manager, player, FMLCommonHandler.instance().getEffectiveSide());
+    }
+
 }

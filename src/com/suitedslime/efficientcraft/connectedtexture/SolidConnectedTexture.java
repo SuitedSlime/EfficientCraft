@@ -24,20 +24,20 @@ public class SolidConnectedTexture extends CTBase {
         BlockCoord other = coord.copy();
         Block cover = coord.offset(face).getBlock(block);
         ConnectedTexture neighborT = null;
-        
+
         if (neighbor instanceof IConnectedTexture) {
             neighborT = ((IConnectedTexture) neighbor).getTextureType(face, meta);
-            
+
             if (((IConnectedTexture) neighbor).getTextureRenderer(side, meta) instanceof SlabConnectedTexture)
                 return false;
         }
-        
+
         if (neighborT != null && cover != null)
             return !cover.isOpaqueCube() && this.texture.name == neighborT.name && self.blockEquals(block, other);
         else if (neighborT != null)
             return this.texture.name == neighborT.name && self.blockEquals(block, other);
-        
+
         return false;
     }
-    
+
 }
