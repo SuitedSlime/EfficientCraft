@@ -58,7 +58,7 @@ public class TickHandler implements ITickHandler {
         return "EC-MBS";
     }
 
-    private void scheculeTask(IBlockAccess world, int x, int y, int z, boolean doValidate) {
+    private void scheduleTask(IBlockAccess world, int x, int y, int z, boolean doValidate) {
         queue.offer(new Task(world, x, y, z, doValidate));
         queueEmpty = false;
     }

@@ -28,7 +28,7 @@ public class WorldBlock {
         return access.isAirBlock(x, y, z);
     }
 
-    public TileEntity getTileEnityt() {
+    public TileEntity getTileEnity() {
         return access.getBlockTileEntity(x, z, z);
     }
 }

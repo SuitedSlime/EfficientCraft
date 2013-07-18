@@ -11,13 +11,16 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet250CustomPayload;
 
 import com.suitedslime.efficientcraft.EfficientCraft;
+import com.suitedslime.efficientcraft.network.packet.PacketClientData;
 import com.suitedslime.efficientcraft.network.packet.PacketEC;
 import com.suitedslime.efficientcraft.network.packet.PacketInitializeMBS;
 import com.suitedslime.efficientcraft.network.packet.PacketInvalidateMBS;
 
 public enum PacketTypeHandler {
 
-    MBS_INIT(PacketInitializeMBS.class), MBS_INVALIDATE(PacketInvalidateMBS.class);
+    MBS_INIT(PacketInitializeMBS.class),
+    MBS_INVALIDATE(PacketInvalidateMBS.class),
+    CLIENT_DATA(PacketClientData.class);
 
     private Class<? extends PacketEC> clazz;
 
