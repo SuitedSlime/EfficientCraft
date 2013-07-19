@@ -17,7 +17,7 @@ public class WorldBlock {
     }
 
     public Block getBlock() {
-        return Block.blocksList[access.getBlockId(z, y, z)];
+        return Block.blocksList[access.getBlockId(x, y, z)];
     }
 
     public int getMetadata() {

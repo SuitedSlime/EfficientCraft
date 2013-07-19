@@ -1,8 +1,11 @@
 package com.suitedslime.efficientcraft.multiblock;
 
+import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import com.suitedslime.efficientcraft.block.ECBlocks;
+import com.suitedslime.efficientcraft.block.base.StructureComponent;
 import com.suitedslime.efficientcraft.network.packet.PacketInitializeMBS;
 import com.suitedslime.efficientcraft.tileentity.TileEntityStructure;
 import com.suitedslime.efficientcraft.util.WorldBlock;
@@ -10,6 +13,7 @@ import com.suitedslime.efficientcraft.util.WorldChunk;
 import com.suitedslime.efficientcraft.util.WorldCoordinate;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
 public abstract class MultiBlockStructure {
@@ -136,10 +140,49 @@ public abstract class MultiBlockStructure {
                         if (replacement != null) {
                             int subID = ((TileEntityStructure)tileEntity).getSubBlock();
                             replacement.getSubBlock(subID);
+                            
+                            WorldCoordinate central = getCentralCoordinate(chunk, rotation);
+                            tileEntity.worldObj.setBlockTileEntity(central.x, central.y, central.z, replacement);
+                            ((TileEntityStructure)worldBlock.getTileEnity()).validateStructure(this, rotation, x, y, z);
                         }
                     }
+                    ((World)chunk.getBlockAccess()).markBlockForUpdate(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
                 }
             }
         }
+        FMLLog.fine(String.format("Validated structure at: (%s, %s, %s)", x, y, z));
+    }
+    
+    public StructureComponent getStructureComponentFrom(TileEntity tileEntity) {
+        if (tileEntity != null && tileEntity instanceof TileEntityStructure) {
+            TileEntityStructure tile = (TileEntityStructure) tileEntity;
+            return StructureComponent.values()[tile.getSubBlock()];
+        }
+        return null;
+    }
+    
+    public static StructureBlock matchAny(final StructureComponent...components) {
+        return new StructureBlock() {
+            @Override
+            public boolean isMatchingBlock(WorldBlock worldBlock) {
+                Block block = worldBlock.getBlock();
+                
+                if (block == null)
+                    return false;
+                if (block.blockID == ECBlocks.blockStructureComponent.blockID) {
+                     TileEntityStructure tile = (TileEntityStructure) worldBlock.getTileEnity();
+                     int subBlock = tile.getSubBlock();
+                     for (StructureComponent sub : components) {
+                         if (subBlock == sub.ordinal())
+                             return true;
+                     }
+                }
+                return false;
+            }
+        };
+    }
+    
+    public TileEntityStructure getNewCentralTileEntity() {
+        return null;
     }
 }

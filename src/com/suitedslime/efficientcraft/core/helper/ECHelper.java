@@ -7,8 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 
+import com.suitedslime.efficientcraft.block.BlockStructure;
 import com.suitedslime.efficientcraft.util.IdMetaPair;
 import com.suitedslime.efficientcraft.util.WorldChunk;
 import com.suitedslime.efficientcraft.util.WorldCoordinate;
@@ -140,5 +146,48 @@ public abstract class ECHelper {
 
     public static Map<IdMetaPair, List<String>> getTooltipMap() {
         return tooltipMap;
+    }
+    
+    /**
+     * Send a packet to the player.
+     * 
+     * @param entityPlayer The player the packet should be sent to.
+     * @param packet The packet that should be sent.
+     */
+    public static void sendToPlayer(EntityPlayer entityPlayer, Packet packet) {
+        if (packet != null)
+            ((EntityPlayerMP) entityPlayer).playerNetServerHandler.sendPacketToPlayer(packet);
+    }
+    
+    /**
+     * Send a packet to players. 
+     */
+    public static void sendToPlayers(Packet packet, World world, double x, double y, double z, int maxDistance) {
+        if ((ECHelper.isServer(world)) && (packet != null)) {
+            for (int j = 0; j < world.playerEntities.size(); j++) {
+                EntityPlayerMP player = (EntityPlayerMP) world.playerEntities.get(j);
+                
+                if ((Math.abs(player.posX - x) <= maxDistance) && (Math.abs(player.posY -y) <= maxDistance) && (Math.abs(player.posZ - z) <= maxDistance))
+                    player.playerNetServerHandler.sendPacketToPlayer(packet);
+            }
+        }
+    }
+    
+    public static void sendToPlayers(Packet packet, TileEntity tileEntity) {
+        sendToPlayers(packet, tileEntity.worldObj, tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord, 192);
+    }
+    
+    /**
+     * @return True if client, false if not.
+     */
+    public static boolean isClient(World world) {
+        return world.isRemote;
+    }
+    
+    /**
+     * @return True if server, false otherwise.
+     */
+    public static boolean isServer(World world) {
+        return !world.isRemote;
     }
 }

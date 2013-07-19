@@ -8,6 +8,7 @@ import net.minecraft.util.AxisAlignedBB;
 
 import com.suitedslime.efficientcraft.core.helper.ECHelper;
 import com.suitedslime.efficientcraft.multiblock.MultiBlockStructure;
+import com.suitedslime.efficientcraft.network.packet.PacketClientData;
 import com.suitedslime.efficientcraft.tileentity.base.TileEntityGeneric;
 
 import cpw.mods.fml.relauncher.Side;
@@ -99,7 +100,7 @@ public abstract class TileEntityStructure extends TileEntityGeneric {
     
     public void sendDataToClient(String key, Object data) {
         PacketClientData packet = new PacketClientData(xCoord, yCoord, zCoord, key, data);
-        ECHelper.sendToPlayer(packet.makePacket(), this);
+        ECHelper.sendToPlayers(packet.makePacket(), this);
     }
     
     public static TileEntityStructure createNewPlaceholderTE() {
